@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d8414d6d978b42d1a7180a5b33b5f08, type: 3}
+  m_Name: Wave 17
+  m_EditorClassIdentifier: 
+  movementSpeed: 0.217
+  recoilAmount: 0.175
+  fireRate: 0.881
+  shieldRadius: 0.755
+  shieldSlowdown: 0.172
+  fireRange: 5.66
+  shieldBounceEnabled: 1
+  frontShieldEnabled: 0
+  explodingBulletsEnabled: 1
+  shotgunEnabled: 0
+  explosionSize: 0
+  shotgunBulletAmount: 0
+  shieldBounceProbability: 1
+  frontShieldSize: 0
+  enemyColor: {r: 0, g: 0, b: 0, a: 0}
+  enemyAnimator: {fileID: 0}
+  enemyWeapon: {fileID: 0}
+  moneyDropMin: 17
+  moneyDropMax: 34
+  runeDropChance: 0
