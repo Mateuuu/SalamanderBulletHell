@@ -32,7 +32,8 @@ public class Spawner : MonoBehaviour
         {
             Transform randomPosition = spawnPoints[Random.Range(0, spawnPoints.Count)];
             GameObject particle = ObjectPool.SpawnFromPool("EnemySpawnParticles", randomPosition.position, Quaternion.identity);
-            particle.GetComponent<ParticleSystem>().startLifetime = waves[wave].spawnInterval;
+            var particleSystem = particle.GetComponent<ParticleSystem>().main;
+            particleSystem.startLifetime = waves[wave].spawnInterval;
 
             yield return new WaitForSeconds(waves[wave].spawnInterval);
 
