@@ -18,6 +18,7 @@ public class Enemy : MonoBehaviour, IDestructableObject
     Transform parentTransform;
     private float recoilForce;
     private bool isRecoiling;
+    bool destroyed = false;
     void Awake()
     {
         parentTransform = transform.parent;
@@ -27,7 +28,7 @@ public class Enemy : MonoBehaviour, IDestructableObject
 
     void OnEnable()
     {
-        
+        destroyed = false;
     }
     public void ResetData()
     {
@@ -219,7 +220,14 @@ public class Enemy : MonoBehaviour, IDestructableObject
     }
     WaitForSeconds wait = new WaitForSeconds(.1f);
     public void DestroyObject()
-    {
+    {        
+
+        if(destroyed)
+        {
+            return;
+        }
+        destroyed = true;
+        
         int random = Random.Range(enemyData.moneyDropMin, enemyData.moneyDropMax);
 
         while(random >= 10)
