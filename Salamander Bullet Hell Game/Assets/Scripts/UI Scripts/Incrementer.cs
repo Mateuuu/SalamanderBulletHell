@@ -16,9 +16,9 @@ public class Incrementer : MonoBehaviour
     [SerializeField] protected float minValue;
     [SerializeField] protected float maxValue;
     [SerializeField] protected int numOfIncrements;
-    RectTransform  incrementImageTransform;
+    protected RectTransform  incrementImageTransform;
     protected float value = 0f;
-    public int incrementStatus {get; private set;}
+    public int incrementStatus {get; protected set;}
     protected virtual void Awake()
     {
         incrementImageTransform = incrementImage.GetComponent<RectTransform>();

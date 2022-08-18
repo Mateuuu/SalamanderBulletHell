@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class PlayerController : MonoBehaviour
 {
+    public static event Action playerIsHit;
     [HideInInspector] public float movementSpeed = 5f;
     [HideInInspector] public float shootForce = 5f;
     [HideInInspector] public bool recoilAttackEnabled = false;
@@ -12,19 +14,23 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Transform bulletSpawnPoint;
     [SerializeField] GameObject playerRecoilAttack;
     [SerializeField] private int shotgunBulletCount = 3;
+    [SerializeField] GameObject instakillEverything;
 
     Rigidbody2D rb;
+    SpriteRenderer sr;
     PlayerDeath playerDeath;
 
     Vector2 movement;
     bool isRecoiling = false;
     bool movementDisabled = false;
     bool paused = false;
+    bool invincibilityFrames = false;
     const float oneOverSqrtTwo = .7071067f;
     void Awake()
     {
+        instakillEverything.SetActive(false);
+        sr = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
-        playerDeath = GetComponent<PlayerDeath>();
     }
     private void OnEnable() => PlayerDeath.playerDeath += DisableMovement;
     private void OnDisable() => PlayerDeath.playerDeath -= DisableMovement;
@@ -105,6 +111,7 @@ public class PlayerController : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D other)
     {
+        if(invincibilityFrames) return;
         if(
             other.gameObject.layer == 9 //normal bullet
         || other.gameObject.layer == 11 //enemy
@@ -112,14 +119,20 @@ public class PlayerController : MonoBehaviour
         || other.gameObject.layer == 16 //exploding bullet
         ) 
         {
-            playerDeath.Die();
+            StartCoroutine(TakeDamage());
+            StartCoroutine(InstaKillEverything());
+            playerIsHit?.Invoke();
         }
     }
     void OnTriggerEnter2D(Collider2D other)
     {
+        if(invincibilityFrames) return;
+
         if(other.gameObject.layer == 15) // 15 is explosion layer
         {
-            playerDeath.Die();
+            StartCoroutine(TakeDamage());
+            StartCoroutine(InstaKillEverything());
+            playerIsHit?.Invoke();
         }
     }
     private void SpawnBullet()
@@ -135,7 +148,7 @@ public class PlayerController : MonoBehaviour
                     Quaternion rotation = Quaternion.Euler(
                         bulletSpawnPoint.transform.rotation.x, 
                         bulletSpawnPoint.transform.rotation.y, 
-                        bulletSpawnPoint.transform.eulerAngles.z + Random.Range(-90f, 90f)
+                        bulletSpawnPoint.transform.eulerAngles.z + UnityEngine.Random.Range(-90f, 90f)
                         );
                     obj = ObjectPool.SpawnFromPool("ExplodingBullet", bulletSpawnPoint.transform.position, rotation);
                     bullets.Add(obj.GetComponent<ExplodingBullet>());
@@ -162,7 +175,7 @@ public class PlayerController : MonoBehaviour
                     Quaternion rotation = Quaternion.Euler(
                         bulletSpawnPoint.transform.rotation.x, 
                         bulletSpawnPoint.transform.rotation.y, 
-                        bulletSpawnPoint.transform.eulerAngles.z + Random.Range(-90f, 90f)
+                        bulletSpawnPoint.transform.eulerAngles.z + UnityEngine.Random.Range(-90f, 90f)
                         );
                     obj = ObjectPool.SpawnFromPool("PlayerBullet", bulletSpawnPoint.transform.position, rotation);
                 }
@@ -175,5 +188,34 @@ public class PlayerController : MonoBehaviour
         movementDisabled = true;
         movement = Vector2.zero;
         rb.velocity = Vector2.zero;
+    }
+    IEnumerator InstaKillEverything()
+    {
+        instakillEverything.SetActive(true);
+        yield return fixedUpdateWait;
+        yield return fixedUpdateWait;
+        yield return fixedUpdateWait;
+        yield return fixedUpdateWait;
+        yield return fixedUpdateWait;
+        instakillEverything.SetActive(false);
+    }
+    IEnumerator TakeDamage()
+    {
+        invincibilityFrames = true;
+        for(int i = 0; i < 30; i++)
+        {
+            if(i % 2 == 0)
+            {
+                sr.color = Color.red;
+                yield return fixedUpdateWait;
+            }
+            else
+            {
+                sr.color = Color.white;
+                yield return fixedUpdateWait;
+            }
+        }
+        invincibilityFrames = false;
+
     }
 }

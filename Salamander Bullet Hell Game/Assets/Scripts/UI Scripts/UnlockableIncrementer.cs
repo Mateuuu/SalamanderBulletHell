@@ -60,4 +60,24 @@ public class UnlockableIncrementer : Incrementer
         purchaseDisplay.GetComponent<RectTransform>().sizeDelta = new Vector2(purchased * imagePixelsPerUnit, imagePixelsPerUnit);
         return base.SetValue(value);
     }
+    /// <summary>
+    /// Method <c>SetValue</c> directly sets the increment. Only use if you wish to override current increment
+    /// <returns>
+    /// Value 
+    /// </returns>
+    /// </summary>
+    public float SetIncrement(int increment)
+    {
+        increment = Mathf.Clamp(increment, 0, numOfIncrements);
+        incrementStatus = increment;
+        incrementImageTransform.sizeDelta = new Vector2(increment * imagePixelsPerUnit, imagePixelsPerUnit);
+
+        // y = mx + b
+        float m = (maxValue - minValue)/(float)numOfIncrements;
+        float x = (float)incrementStatus;
+        float b = minValue;
+        value = (m*x) + b;
+
+        return value;
+    }
 }

@@ -41,7 +41,7 @@ public class PlayerBullet : MonoBehaviour, IDestructableObject, IBullet
     }
     void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.gameObject.layer == 15 ) //15 is explosion layer
+        if(other.gameObject.layer == 15 || other.gameObject.layer == 19) //15 is explosion layer
         {
             DestroyObject();
         }
