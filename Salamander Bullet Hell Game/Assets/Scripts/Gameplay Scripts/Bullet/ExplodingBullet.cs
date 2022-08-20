@@ -13,8 +13,11 @@ public class ExplodingBullet : MonoBehaviour, IDestructableObject, IBullet
     SpriteRenderer spriteRenderer;
     CircleCollider2D explosionCollider;
     Rigidbody2D rb;
+    BoxCollider2D boxCollider2D;
+    bool exploded = false;
     void Awake()
     {
+        boxCollider2D = GetComponent<BoxCollider2D>();
         id = Guid.NewGuid().ToString();
         explosionCollider = GetComponentInChildren<CircleCollider2D>();
         
@@ -24,6 +27,8 @@ public class ExplodingBullet : MonoBehaviour, IDestructableObject, IBullet
     }
     void OnEnable()
     {
+        boxCollider2D.enabled = true;
+        exploded = false;
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 0, shieldLayer);
         if(hit.collider != null)
         {
@@ -80,7 +85,10 @@ public class ExplodingBullet : MonoBehaviour, IDestructableObject, IBullet
     {
         if(other.gameObject.layer == 15  || other.gameObject.layer == 19) // layer 11 is the enemy layer, 15 is explosion layer
         {
-            DestroyObject();
+            if(!exploded)
+            {
+                DestroyObject();
+            }
         }
     }
     public void DestroyObject()
@@ -89,6 +97,9 @@ public class ExplodingBullet : MonoBehaviour, IDestructableObject, IBullet
     }
     IEnumerator Explode()
     {
+        exploded = true;
+
+        boxCollider2D.enabled = true;
         explosionCollider.enabled = true;
         rb.velocity = Vector2.zero;
         spriteRenderer.enabled = false;
@@ -96,9 +107,9 @@ public class ExplodingBullet : MonoBehaviour, IDestructableObject, IBullet
 
         yield return new WaitForSeconds(.25f);
 
-
         rb.velocity = Vector2.zero;
         explosionCollider.enabled = false;
+        boxCollider2D.enabled = false;
 
         yield return new WaitForSeconds(1.2f);
 
