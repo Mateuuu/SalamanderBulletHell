@@ -11,7 +11,7 @@ public class UpgradeMenuButtons : MonoBehaviour
     public void PlayGame()
     {
         SaveSystem.SaveGenericUpgradesData(upgradesSaveInterface.genericUpgradesData);
-        SaveSystem.SaveClassUpgradesData(upgradesSaveInterface.classUpgradesData);
+        // SaveSystem.SaveClassUpgradesData(upgradesSaveInterface.classUpgradesData);
         SaveSystem.SaveCurrencyData(shopMoneyManager.currencyData);
 
         SceneManager.LoadScene("Game");

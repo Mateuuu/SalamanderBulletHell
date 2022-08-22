@@ -10,7 +10,7 @@ public class PlayerPropertiesInterface : MonoBehaviour
     [SerializeField] private UnlockableIncrementer shieldRadiusIncrementer;
     [SerializeField] private UnlockableIncrementer shieldSlowdownIncrementer;
     GenericUpgradesData genericUpgradesData;
-    ClassUpgradesData classUpgradesData;
+    // ClassUpgradesData classUpgradesData;
     PlayerController playerController;
     PlayerShield playerShield;
     PlayerRecoilAttack playerRecoilAttack;
@@ -29,26 +29,26 @@ public class PlayerPropertiesInterface : MonoBehaviour
             SaveSystem.SaveGenericUpgradesData(new GenericUpgradesData());
             genericUpgradesData = SaveSystem.ReadGenericUpgradesData();
         }
-        classUpgradesData = SaveSystem.ReadClassUpgradesData();
-        if(classUpgradesData == null)
-        {
-            SaveSystem.SaveClassUpgradesData(new ClassUpgradesData());
-            classUpgradesData = SaveSystem.ReadClassUpgradesData();
-        }
+        // classUpgradesData = SaveSystem.ReadClassUpgradesData();
+        // if(classUpgradesData == null)
+        // {
+        //     SaveSystem.SaveClassUpgradesData(new ClassUpgradesData());
+        //     classUpgradesData = SaveSystem.ReadClassUpgradesData();
+        // }
 
         playerController = GetComponent<PlayerController>();
         playerShield = GetComponentInChildren<PlayerShield>();
         playerRecoilAttack = GetComponentInChildren<PlayerRecoilAttack>();
 
         SetMovementSpeed(genericUpgradesData.movementSpeed);
-        SetRecoil(genericUpgradesData.recoil);
+        SetRecoil(genericUpgradesData.recoilAmount);
         SetShieldRadius(genericUpgradesData.shieldRadius);
         SetShieldSlowdown(genericUpgradesData.shieldSlowdown);
 
-        ToggleRecoilAttack(classUpgradesData.recoilAttackEnabled);
-        ToggleShieldDeflection(classUpgradesData.shieldAttackEnabled);
-        ToggleExplodingBullet(classUpgradesData.explodingBulletEnabled);
-        ToggleShotGun(classUpgradesData.shotgunEnabled);
+        // ToggleRecoilAttack(classUpgradesData.recoilAttackEnabled);
+        // ToggleShieldDeflection(classUpgradesData.shieldAttackEnabled);
+        // ToggleExplodingBullet(classUpgradesData.explodingBulletEnabled);
+        // ToggleShotGun(classUpgradesData.shotgunEnabled);
 
         incrementers.Add(0, moveSpeedIncrementer);
         incrementers.Add(1, recoilIncrementer);
@@ -60,7 +60,7 @@ public class PlayerPropertiesInterface : MonoBehaviour
     {
         yield return null;
         moveSpeedIncrementer.SetValue(genericUpgradesData.movementSpeed, genericUpgradesData.movementLevel);
-        recoilIncrementer.SetValue(genericUpgradesData.recoil, genericUpgradesData.recoilLevel);
+        recoilIncrementer.SetValue(genericUpgradesData.recoilAmount, genericUpgradesData.recoilAmountLevel);
         shieldRadiusIncrementer.SetValue(genericUpgradesData.shieldRadius, genericUpgradesData.shieldRadiusLevel);
         shieldSlowdownIncrementer.SetValue(genericUpgradesData.shieldSlowdown, genericUpgradesData.shieldSlowdownLevel);
 
@@ -96,22 +96,22 @@ public class PlayerPropertiesInterface : MonoBehaviour
         }
         if(incrementers[incrementers.ElementAt(rand).Key].incrementStatus <= 0) incrementers.Remove(incrementers.ElementAt(rand).Key);
     }
-    private void ToggleRecoilAttack(bool isDisabled)
-    {
-        playerController.recoilAttackEnabled = isDisabled;
-    }
-    private void ToggleShieldDeflection(bool isDisabled)
-    {
-        playerShield.shieldDeflectEnabled = isDisabled;
-    }
-    private void ToggleExplodingBullet(bool isDisabled)
-    {
-        playerController.explodingBulletEnabled = isDisabled;
-    }
-    private void ToggleShotGun(bool isDisabled)
-    {
-        playerController.shotgunEnabled = isDisabled;
-    }
+    // private void ToggleRecoilAttack(bool isDisabled)
+    // {
+    //     playerController.recoilAttackEnabled = isDisabled;
+    // }
+    // private void ToggleShieldDeflection(bool isDisabled)
+    // {
+    //     playerShield.shieldDeflectEnabled = isDisabled;
+    // }
+    // private void ToggleExplodingBullet(bool isDisabled)
+    // {
+    //     playerController.explodingBulletEnabled = isDisabled;
+    // }
+    // private void ToggleShotGun(bool isDisabled)
+    // {
+    //     playerController.shotgunEnabled = isDisabled;
+    // }
     private void SetMovementSpeed(float percentage)
     {
         playerController.movementSpeed = 500 * percentage;

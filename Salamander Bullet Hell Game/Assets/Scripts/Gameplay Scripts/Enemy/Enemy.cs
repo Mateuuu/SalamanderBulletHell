@@ -1,5 +1,3 @@
-using System.Data;
-using System.ComponentModel;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -221,7 +219,6 @@ public class Enemy : MonoBehaviour, IDestructableObject
     WaitForSeconds wait = new WaitForSeconds(.1f);
     public void DestroyObject()
     {        
-
         if(destroyed)
         {
             return;

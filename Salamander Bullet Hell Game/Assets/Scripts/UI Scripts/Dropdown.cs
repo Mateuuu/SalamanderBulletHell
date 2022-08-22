@@ -15,7 +15,6 @@ public class Dropdown : MonoBehaviour
     }
     private void OnEnable() => dropDownbutton.onClick.AddListener(ToggleDropdown);
     private void OnDisable() => dropDownbutton.onClick.RemoveListener(ToggleDropdown);
-
     private void ToggleDropdown()
     {
         if(!dropped)
