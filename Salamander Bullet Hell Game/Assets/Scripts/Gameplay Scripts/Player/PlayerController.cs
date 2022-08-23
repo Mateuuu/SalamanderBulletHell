@@ -6,14 +6,38 @@ using System;
 public class PlayerController : MonoBehaviour
 {
     public static event Action playerIsHit;
-    [HideInInspector] public float movementSpeed = 5f;
-    [HideInInspector] public float shootForce = 5f;
+
+
+
+    #region Player Property Variables
+
+    // * Variables that affect the player's properties
+
+    // * Movement Variables
+    [HideInInspector] public float movementSpeed;
+    // * Recoil Variables
+    [HideInInspector] public float shootForce;
+    // * Bullet Variables
+    [HideInInspector] public float explodingBullet;
+    [HideInInspector] public int shotgun;
+    [HideInInspector] public float bulletSpeed;
+    [HideInInspector] public float bulletSize;
+
+
+
+
+    // Will delete later
     [HideInInspector] public bool recoilAttackEnabled = false;
-    [HideInInspector] public bool explodingBulletEnabled = false;
-    [HideInInspector] public bool shotgunEnabled = false;
+
+    #endregion
+
+
+
+
+
+
     [SerializeField] Transform bulletSpawnPoint;
     [SerializeField] GameObject playerRecoilAttack;
-    [SerializeField] private int shotgunBulletCount = 3;
     [SerializeField] GameObject instakillEverything;
 
     Rigidbody2D rb;
@@ -21,10 +45,14 @@ public class PlayerController : MonoBehaviour
     PlayerDeath playerDeath;
 
     Vector2 movement;
+
+
     bool isRecoiling = false;
     bool movementDisabled = false;
     bool paused = false;
     bool invincibilityFrames = false;
+
+
     const float oneOverSqrtTwo = .7071067f;
     void Awake()
     {
@@ -34,10 +62,6 @@ public class PlayerController : MonoBehaviour
     }
     private void OnEnable() => PlayerDeath.playerDeath += DisableMovement;
     private void OnDisable() => PlayerDeath.playerDeath -= DisableMovement;
-    void Start()
-    {
-        if(shotgunEnabled) shootForce = 280f * shotgunBulletCount;
-    }
 
     void Update()
     {
@@ -81,7 +105,7 @@ public class PlayerController : MonoBehaviour
     WaitForFixedUpdate fixedUpdateWait = new WaitForFixedUpdate();
     IEnumerator Recoil()
     {
-        if(shootForce == 0)
+        if(shootForce == 0 && shotgun == 0)
         {
             yield break;
         }
@@ -89,8 +113,13 @@ public class PlayerController : MonoBehaviour
         {
             playerRecoilAttack.SetActive(true);
         }
+
+        float tempShootForce;
+        tempShootForce = shootForce + ((float)shotgun * 200f);
+
+
         isRecoiling = true;
-        rb.AddForce(-transform.right * shootForce);
+        rb.AddForce(-transform.right * tempShootForce);
         yield return fixedUpdateWait;
         while(rb.velocity.sqrMagnitude > 30f)
         {
@@ -138,12 +167,14 @@ public class PlayerController : MonoBehaviour
     private void SpawnBullet()
     {
         GameObject obj;
-        if(explodingBulletEnabled)
+        ExplodingBullet tempExplodingBullet;
+        PlayerBullet tempBullet;
+        if(explodingBullet != 0)
         {
             List<ExplodingBullet> bullets = new List<ExplodingBullet>();
-            if(shotgunEnabled)
+            if(shotgun != 0)
             {
-                for (int i = 0; i < shotgunBulletCount - 1; i++)
+                for (int i = 0; i < shotgun - 1; i++)
                 {
                     Quaternion rotation = Quaternion.Euler(
                         bulletSpawnPoint.transform.rotation.x, 
@@ -151,11 +182,26 @@ public class PlayerController : MonoBehaviour
                         bulletSpawnPoint.transform.eulerAngles.z + UnityEngine.Random.Range(-90f, 90f)
                         );
                     obj = ObjectPool.SpawnFromPool("ExplodingBullet", bulletSpawnPoint.transform.position, rotation);
-                    bullets.Add(obj.GetComponent<ExplodingBullet>());
+                    tempExplodingBullet = obj.GetComponent<ExplodingBullet>();
+                    // Change the properties of the bullet
+                    tempExplodingBullet.SetSpeed(bulletSpeed);
+                    tempExplodingBullet.SetSize(bulletSize);
+                    tempExplodingBullet.Shoot();
+
+
+
+                    bullets.Add(tempExplodingBullet);
                 }
             }
             obj = ObjectPool.SpawnFromPool("ExplodingBullet", bulletSpawnPoint.transform.position, bulletSpawnPoint.transform.rotation);
-            bullets.Add(obj.GetComponent<ExplodingBullet>());
+            tempExplodingBullet = obj.GetComponent<ExplodingBullet>();
+            // Change the properties of the bullet
+            tempExplodingBullet.SetSpeed(bulletSpeed);
+            tempExplodingBullet.SetSize(bulletSize);
+            tempExplodingBullet.Shoot();
+
+
+            bullets.Add(tempExplodingBullet);
 
             foreach(ExplodingBullet bullet in bullets)
             {
@@ -168,9 +214,9 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            if(shotgunEnabled)
+            if(shotgun != 0)
             {
-                for (int i = 0; i < shotgunBulletCount - 1; i++)
+                for (int i = 0; i < shotgun - 1; i++)
                 {
                     Quaternion rotation = Quaternion.Euler(
                         bulletSpawnPoint.transform.rotation.x, 
@@ -178,9 +224,17 @@ public class PlayerController : MonoBehaviour
                         bulletSpawnPoint.transform.eulerAngles.z + UnityEngine.Random.Range(-90f, 90f)
                         );
                     obj = ObjectPool.SpawnFromPool("PlayerBullet", bulletSpawnPoint.transform.position, rotation);
+                    tempBullet = obj.GetComponent<PlayerBullet>();
+                    tempBullet.SetSpeed(bulletSpeed);
+                    tempBullet.SetSize(bulletSize);
+                    tempBullet.Shoot();
                 }
             }
             obj = ObjectPool.SpawnFromPool("PlayerBullet", bulletSpawnPoint.transform.position, bulletSpawnPoint.transform.rotation);
+            tempBullet = obj.GetComponent<PlayerBullet>();
+            tempBullet.SetSpeed(bulletSpeed);
+            tempBullet.SetSize(bulletSize);
+            tempBullet.Shoot(); 
         }
     }
     private void DisableMovement()

@@ -12,19 +12,6 @@ public class PlayerBullet : MonoBehaviour, IDestructableObject, IBullet
     {
         rb = GetComponent<Rigidbody2D>();
     }
-    void OnEnable()
-    {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 0, shieldLayer);
-        if(hit.collider != null)
-        {
-            gameObject.layer = 13;
-        }
-        else
-        {
-            gameObject.layer = 9;
-        }
-        rb.AddForce(transform.right * bulletForce);
-    }
     void OnDisable()
     {
         rb.velocity = Vector2.zero;
@@ -72,5 +59,29 @@ public class PlayerBullet : MonoBehaviour, IDestructableObject, IBullet
     public float GetVelocityMagnitude()
     {
         return rb.velocity.magnitude;
+    }
+    public void SetSize(float size)
+    {
+        size = Mathf.Clamp(size, 0f, 1f) + .3f;
+        transform.localScale = new Vector3(size, size, size);
+    }
+    public void SetSpeed(float speed)
+    {
+        speed = Mathf.Clamp(speed, 0f, 1f) + 1;
+        // 500 is the default force value for normal bullets
+        bulletForce = 500f * speed;
+    }
+    public void Shoot()
+    {
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 0, shieldLayer);
+        if(hit.collider != null)
+        {
+            gameObject.layer = 13;
+        }
+        else
+        {
+            gameObject.layer = 9;
+        }
+        rb.AddForce(transform.right * bulletForce);
     }
 }

@@ -9,6 +9,7 @@ public class ExplodingBullet : MonoBehaviour, IDestructableObject, IBullet
     [SerializeField] LayerMask shieldLayer;
     [HideInInspector]public string id;
     [HideInInspector] public List<string> bulletsToIgnore = new List<string>();
+    [SerializeField] Transform explosion;
     ParticleSystem explosionParticles;
     SpriteRenderer spriteRenderer;
     CircleCollider2D explosionCollider;
@@ -17,6 +18,7 @@ public class ExplodingBullet : MonoBehaviour, IDestructableObject, IBullet
     bool exploded = false;
     void Awake()
     {
+        
         boxCollider2D = GetComponent<BoxCollider2D>();
         id = Guid.NewGuid().ToString();
         explosionCollider = GetComponentInChildren<CircleCollider2D>();
@@ -24,23 +26,6 @@ public class ExplodingBullet : MonoBehaviour, IDestructableObject, IBullet
         spriteRenderer = GetComponent<SpriteRenderer>();
         explosionParticles = GetComponentInChildren<ParticleSystem>();
         rb = GetComponent<Rigidbody2D>();
-    }
-    void OnEnable()
-    {
-        boxCollider2D.enabled = true;
-        exploded = false;
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 0, shieldLayer);
-        if(hit.collider != null)
-        {
-            gameObject.layer = 13;
-        }
-        else
-        {
-            gameObject.layer = 16;
-        }
-        bulletsToIgnore.Remove(id);
-        explosionCollider.enabled = false;
-        rb.AddForce(transform.right * bulletForce);
     }
     void OnDisable()
     {
@@ -139,5 +124,35 @@ public class ExplodingBullet : MonoBehaviour, IDestructableObject, IBullet
     public float GetVelocityMagnitude()
     {
         return rb.velocity.magnitude;
+    }
+    public void SetSize(float size)
+    {
+        size = Mathf.Clamp(size, 0f, 1f) + .3f;
+        transform.localScale = new Vector3(size, size, size);
+        float explosionSize = Mathf.Clamp(size, 0f, 1f) + 1f;
+        explosion.localScale = new Vector3(explosionSize, explosionSize, explosionSize);
+    }
+    public void SetSpeed(float speed)
+    {
+        speed = Mathf.Clamp(speed, 0f, 1f) + 1f;
+        // 300 is the default force value for exploding bullets
+        bulletForce = 300f * speed;
+    }
+    public void Shoot()
+    {
+        boxCollider2D.enabled = true;
+        exploded = false;
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 0, shieldLayer);
+        if(hit.collider != null)
+        {
+            gameObject.layer = 13;
+        }
+        else
+        {
+            gameObject.layer = 16;
+        }
+        bulletsToIgnore.Remove(id);
+        explosionCollider.enabled = false;
+        rb.AddForce(transform.right * bulletForce);
     }
 }

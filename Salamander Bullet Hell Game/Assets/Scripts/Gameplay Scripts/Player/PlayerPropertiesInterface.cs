@@ -45,6 +45,11 @@ public class PlayerPropertiesInterface : MonoBehaviour
         SetShieldRadius(genericUpgradesData.shieldRadius);
         SetShieldSlowdown(genericUpgradesData.shieldSlowdown);
 
+        SetBulletSize(genericUpgradesData.bulletSize);
+        SetBulletSpeed(genericUpgradesData.bulletSpeed);
+        SetShotgun(genericUpgradesData.shotgun);
+        SetExplodingBullet(genericUpgradesData.explodingBullet);
+
         // ToggleRecoilAttack(classUpgradesData.recoilAttackEnabled);
         // ToggleShieldDeflection(classUpgradesData.shieldAttackEnabled);
         // ToggleExplodingBullet(classUpgradesData.explodingBulletEnabled);
@@ -127,5 +132,21 @@ public class PlayerPropertiesInterface : MonoBehaviour
     private void SetShieldSlowdown(float percentage)
     {
         playerShield.shieldSlowdown = (1 - percentage);
+    }
+    private void SetBulletSize(float percentage)
+    {
+        playerController.bulletSize = percentage;
+    }
+    private void SetBulletSpeed(float percentage)
+    {
+        playerController.bulletSpeed = percentage;
+    }
+    private void SetShotgun(float bulletCount)
+    {
+        playerController.shotgun = (int)bulletCount;
+    }
+    private void SetExplodingBullet(float percentage)
+    {
+        playerController.explodingBullet = percentage;
     }
 }

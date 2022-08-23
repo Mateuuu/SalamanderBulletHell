@@ -9,4 +9,7 @@ public interface IBullet
     public Vector2 GetVelocity();
     public void SetVelocity(Vector2 velocity);
     public float GetVelocityMagnitude();
+    public void SetSize(float size);
+    public void SetSpeed(float speed);
+    public void Shoot();
 }

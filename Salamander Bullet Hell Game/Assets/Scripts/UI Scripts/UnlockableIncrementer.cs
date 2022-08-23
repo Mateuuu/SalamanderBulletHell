@@ -21,10 +21,13 @@ public class UnlockableIncrementer : Incrementer
         }
         if(incrementStatus >= prices.Length) return;
         if(prices[incrementStatus] > shopMoneyManager.currencyData.money) return;
+        if(purchased >= numOfIncrements) return;
         purchased++;
         onLevelChanged.Invoke(purchased);
         shopMoneyManager.currencyData.money -= prices[incrementStatus];
         shopMoneyManager.UpdateDisplay();
+
+        purchased = Mathf.Clamp(purchased, 0, numOfIncrements);
         purchaseDisplay.GetComponent<RectTransform>().sizeDelta = new Vector2(purchased * imagePixelsPerUnit, imagePixelsPerUnit);
         base.Increment();
     }
@@ -44,6 +47,7 @@ public class UnlockableIncrementer : Incrementer
     }
     protected override void Awake()
     {
+        purchased = Mathf.Clamp(purchased, 0, numOfIncrements);
         if(prices.Length < numOfIncrements) Debug.LogWarning("Prices length is less than number of increments");
         purchaseDisplay.GetComponent<RectTransform>().sizeDelta = new Vector2(purchased * imagePixelsPerUnit, imagePixelsPerUnit);
         base.Awake();
@@ -57,6 +61,7 @@ public class UnlockableIncrementer : Incrementer
     public int SetValue(float value, int level)
     {
         purchased = level;
+        purchased = Mathf.Clamp(purchased, 0, numOfIncrements);
         purchaseDisplay.GetComponent<RectTransform>().sizeDelta = new Vector2(purchased * imagePixelsPerUnit, imagePixelsPerUnit);
         return base.SetValue(value);
     }

@@ -268,6 +268,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 760078226361202648, guid: fb27390540186ef8a9819f929bfb9411, type: 3}
+      propertyPath: minValue
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 760078226361202648, guid: fb27390540186ef8a9819f929bfb9411, type: 3}
       propertyPath: purchaseDisplay
       value: 
       objectReference: {fileID: 40806339}
@@ -780,7 +784,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 760078226361202648, guid: fb27390540186ef8a9819f929bfb9411, type: 3}
       propertyPath: maxValue
-      value: 0.7
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 760078226361202648, guid: fb27390540186ef8a9819f929bfb9411, type: 3}
+      propertyPath: minValue
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 760078226361202648, guid: fb27390540186ef8a9819f929bfb9411, type: 3}
       propertyPath: shopMoneyManager
@@ -1490,6 +1498,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementSpeed: 400
   shootForce: 1164
+  explodingBullet: 0
+  bulletSpeed: 0
+  bulletSize: 0
   recoilAttackEnabled: 0
   explodingBulletEnabled: 0
   shotgunEnabled: 0

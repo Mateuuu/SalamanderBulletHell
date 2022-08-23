@@ -171,6 +171,8 @@ public class Enemy : MonoBehaviour, IDestructableObject
     private void SpawnBullet()
     {
         GameObject obj;
+        ExplodingBullet tempExplodingBullet;
+        PlayerBullet tempBullet;
         if(enemyData.explodingBulletsEnabled)
         {
             List<ExplodingBullet> bullets = new List<ExplodingBullet>();
@@ -184,11 +186,15 @@ public class Enemy : MonoBehaviour, IDestructableObject
                         bulletSpawnPoint.transform.eulerAngles.z + Random.Range(-90f, 90f)
                         );
                     obj = ObjectPool.SpawnFromPool("ExplodingBullet", bulletSpawnPoint.transform.position, rotation);
-                    bullets.Add(obj.GetComponent<ExplodingBullet>());
+                    tempExplodingBullet = obj.GetComponent<ExplodingBullet>();
+                    tempExplodingBullet.Shoot();
+                    bullets.Add(tempExplodingBullet);
                 }
             }
             obj = ObjectPool.SpawnFromPool("ExplodingBullet", bulletSpawnPoint.transform.position, bulletSpawnPoint.transform.rotation);
-            bullets.Add(obj.GetComponent<ExplodingBullet>());
+            tempExplodingBullet = obj.GetComponent<ExplodingBullet>();
+            tempExplodingBullet.Shoot();
+            bullets.Add(tempExplodingBullet);
 
             foreach(ExplodingBullet bullet in bullets)
             {
@@ -211,9 +217,13 @@ public class Enemy : MonoBehaviour, IDestructableObject
                         bulletSpawnPoint.transform.eulerAngles.z + Random.Range(-90f, 90f)
                         );
                     obj = ObjectPool.SpawnFromPool("PlayerBullet", bulletSpawnPoint.transform.position, rotation);
+                    tempBullet = obj.GetComponent<PlayerBullet>();
+                    tempBullet.Shoot();
                 }
             }
             obj = ObjectPool.SpawnFromPool("PlayerBullet", bulletSpawnPoint.transform.position, bulletSpawnPoint.transform.rotation);
+            tempBullet = obj.GetComponent<PlayerBullet>();
+            tempBullet.Shoot();
         }
     }
     WaitForSeconds wait = new WaitForSeconds(.1f);

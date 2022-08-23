@@ -961,7 +961,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 760078226361202648, guid: fb27390540186ef8a9819f929bfb9411, type: 3}
       propertyPath: minValue
-      value: 0.2
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 760078226361202648, guid: fb27390540186ef8a9819f929bfb9411, type: 3}
       propertyPath: numOfIncrements
@@ -1490,7 +1490,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 760078226361202648, guid: fb27390540186ef8a9819f929bfb9411, type: 3}
       propertyPath: numOfIncrements
-      value: 10
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 760078226361202648, guid: fb27390540186ef8a9819f929bfb9411, type: 3}
       propertyPath: shopMoneyManager
@@ -1731,6 +1731,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 760078226361202649, guid: fb27390540186ef8a9819f929bfb9411, type: 3}
   m_PrefabInstance: {fileID: 825296087}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &527132391 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 760078226361202648, guid: fb27390540186ef8a9819f929bfb9411, type: 3}
+  m_PrefabInstance: {fileID: 825296087}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fbbf2e13f6bedaf798eb9a686d6f68d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &529253169 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 760078226423509937, guid: fb27390540186ef8a9819f929bfb9411, type: 3}
@@ -1795,6 +1806,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 760078226361202648, guid: fb27390540186ef8a9819f929bfb9411, type: 3}
       propertyPath: minValue
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 760078226361202648, guid: fb27390540186ef8a9819f929bfb9411, type: 3}
+      propertyPath: numOfIncrements
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 760078226361202648, guid: fb27390540186ef8a9819f929bfb9411, type: 3}
@@ -2118,6 +2133,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 760078226361202648, guid: fb27390540186ef8a9819f929bfb9411, type: 3}
       propertyPath: minValue
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 760078226361202648, guid: fb27390540186ef8a9819f929bfb9411, type: 3}
+      propertyPath: numOfIncrements
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 760078226361202648, guid: fb27390540186ef8a9819f929bfb9411, type: 3}
@@ -2960,6 +2979,14 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 760078226361202648, guid: fb27390540186ef8a9819f929bfb9411, type: 3}
+      propertyPath: maxValue
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 760078226361202648, guid: fb27390540186ef8a9819f929bfb9411, type: 3}
+      propertyPath: numOfIncrements
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 760078226361202648, guid: fb27390540186ef8a9819f929bfb9411, type: 3}
       propertyPath: purchaseDisplay
       value: 
       objectReference: {fileID: 1274936226}
@@ -3009,11 +3036,11 @@ PrefabInstance:
       objectReference: {fileID: 1461976207}
     - target: {fileID: 760078226361202648, guid: fb27390540186ef8a9819f929bfb9411, type: 3}
       propertyPath: onLevelChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SetShieldRadiusLevel
+      value: SetShotgunLevel
       objectReference: {fileID: 0}
     - target: {fileID: 760078226361202648, guid: fb27390540186ef8a9819f929bfb9411, type: 3}
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SetShieldRadius
+      value: SetShotgun
       objectReference: {fileID: 0}
     - target: {fileID: 760078226361202649, guid: fb27390540186ef8a9819f929bfb9411, type: 3}
       propertyPath: m_Pivot.x
@@ -3101,11 +3128,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 760078226361202650, guid: fb27390540186ef8a9819f929bfb9411, type: 3}
       propertyPath: m_Name
-      value: Temp
+      value: Shotgun
       objectReference: {fileID: 0}
     - target: {fileID: 760078226361202650, guid: fb27390540186ef8a9819f929bfb9411, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 760078226423509937, guid: fb27390540186ef8a9819f929bfb9411, type: 3}
       propertyPath: m_Sprite
@@ -4108,7 +4135,9 @@ MonoBehaviour:
     m_LineSpacing: 1.8
   m_Text: 'Recoil Amount
 
-    Recoil Shield Size'
+    Recoil Shield Size
+
+    Shotgun Bullet Amount'
 --- !u!222 &1339045960
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5313,6 +5342,7 @@ MonoBehaviour:
   invincibilityDashIncrementer: {fileID: 2093605607}
   recoilAmountIncrementer: {fileID: 1562438375}
   recoilShieldSizeIncrementer: {fileID: 1541836388}
+  shotgunIncrementer: {fileID: 527132391}
   shieldRadiusIncrementer: {fileID: 1564692114}
   shieldSlowdownIncrementer: {fileID: 1844812032}
   shieldBounceIncrementer: {fileID: 548870559}
@@ -5326,6 +5356,7 @@ MonoBehaviour:
     invincibilityDash: 0
     recoilAmount: 0
     recoilShieldSize: 0
+    shotgun: 0
     shieldRadius: 0
     shieldSlowdown: 1
     shieldBounce: 0
@@ -5338,6 +5369,7 @@ MonoBehaviour:
     invincibilityDashLevel: 0
     recoilAmountLevel: 0
     recoilShieldSizeLevel: 0
+    shotgunLevel: 0
     shieldRadiusLevel: 0
     shieldSlowdownLevel: 0
     shieldBounceLevel: 0
@@ -5834,6 +5866,10 @@ PrefabInstance:
     - target: {fileID: 760078226257583766, guid: fb27390540186ef8a9819f929bfb9411, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 760078226361202648, guid: fb27390540186ef8a9819f929bfb9411, type: 3}
+      propertyPath: numOfIncrements
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 760078226361202648, guid: fb27390540186ef8a9819f929bfb9411, type: 3}
       propertyPath: purchaseDisplay
@@ -6923,7 +6959,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 760078226361202648, guid: fb27390540186ef8a9819f929bfb9411, type: 3}
       propertyPath: minValue
-      value: 0.2
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 760078226361202648, guid: fb27390540186ef8a9819f929bfb9411, type: 3}
       propertyPath: numOfIncrements
@@ -7462,6 +7498,10 @@ PrefabInstance:
     - target: {fileID: 760078226361202648, guid: fb27390540186ef8a9819f929bfb9411, type: 3}
       propertyPath: maxValue
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 760078226361202648, guid: fb27390540186ef8a9819f929bfb9411, type: 3}
+      propertyPath: numOfIncrements
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 760078226361202648, guid: fb27390540186ef8a9819f929bfb9411, type: 3}
       propertyPath: shopMoneyManager
