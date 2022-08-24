@@ -12,7 +12,6 @@ public class UpgradesSaveInterface : MonoBehaviour
     [SerializeField] private UnlockableIncrementer recoilAmountIncrementer;
     [SerializeField] private UnlockableIncrementer recoilShieldSizeIncrementer;
     [SerializeField] private UnlockableIncrementer shotgunIncrementer;
-    [SerializeField] private UnlockableIncrementer recoilAttackSizeIncrementer;
     // * Shield Incrementers
     [SerializeField] private UnlockableIncrementer shieldRadiusIncrementer;
     [SerializeField] private UnlockableIncrementer shieldSlowdownIncrementer;
@@ -43,12 +42,11 @@ public class UpgradesSaveInterface : MonoBehaviour
     {
         yield return null;
         moveSpeedIncrementer.SetValue(genericUpgradesData.movementSpeed, genericUpgradesData.movementLevel);
-        invincibilityDashIncrementer.SetValue(genericUpgradesData.invincibilityDash, genericUpgradesData.invincibilityDashLevel);
+        // invincibilityDashIncrementer.SetValue(genericUpgradesData.invincibilityDash, genericUpgradesData.invincibilityDashLevel);
 
         recoilAmountIncrementer.SetValue(genericUpgradesData.recoilAmount, genericUpgradesData.recoilAmountLevel);
         recoilShieldSizeIncrementer.SetValue(genericUpgradesData.recoilShieldSize, genericUpgradesData.recoilShieldSizeLevel);
         shotgunIncrementer.SetValue(genericUpgradesData.shotgun, genericUpgradesData.shotgunLevel);
-        recoilAttackSizeIncrementer.SetValue(genericUpgradesData.recoilAttackSize, genericUpgradesData.recoilAttackSizeLevel);
 
         shieldRadiusIncrementer.SetValue(genericUpgradesData.shieldRadius, genericUpgradesData.shieldRadiusLevel);
         shieldSlowdownIncrementer.SetValue(genericUpgradesData.shieldSlowdown, genericUpgradesData.shieldSlowdownLevel);
@@ -82,16 +80,13 @@ public class UpgradesSaveInterface : MonoBehaviour
     {
         genericUpgradesData.shotgun = bulletAmount;
     }
-    public void SetRecoilAttackSize(float percentage)
-    {
-        genericUpgradesData.recoilAttackSize = percentage;
-    }
     public void SetShieldRadius(float percentage)
     {
         genericUpgradesData.shieldRadius = percentage;
     }
     public void SetShieldSlowdown(float percentage)
     {
+        Debug.Log(percentage);
         genericUpgradesData.shieldSlowdown = percentage;
     }
     public void SetShieldBounce(float percentage)
@@ -142,10 +137,6 @@ public class UpgradesSaveInterface : MonoBehaviour
     public void SetShotgunLevel(int level)
     {
         genericUpgradesData.shotgunLevel = level;
-    }
-    public void SetRecoilAttackSizeLevel(int level)
-    {
-        genericUpgradesData.recoilAttackSizeLevel = level;
     }
     // * Shield Upgrades Level
     public void SetShieldRadiusLevel(int level)

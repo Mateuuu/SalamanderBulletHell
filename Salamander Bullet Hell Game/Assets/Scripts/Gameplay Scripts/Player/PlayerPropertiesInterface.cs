@@ -153,7 +153,6 @@ public class PlayerPropertiesInterface : MonoBehaviour
     private void SetRecoilAttackSize(float percentage)
     {
         playerRecoilAttack.recoilAttackSize = percentage;
-        Debug.Log(playerRecoilAttack.recoilAttackSize);
         if(playerRecoilAttack.recoilAttackSize != 0)
         {
             playerController.recoilAttackEnabled = true;
