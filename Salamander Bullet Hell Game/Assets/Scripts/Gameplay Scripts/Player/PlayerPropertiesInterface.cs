@@ -15,6 +15,7 @@ public class PlayerPropertiesInterface : MonoBehaviour
     PlayerShield playerShield;
     PlayerRecoilAttack playerRecoilAttack;
     PlayerDeath playerDeath;
+    PlayerBulletTrail playerBulletTrail;
     Dictionary<int, UnlockableIncrementer> incrementers = new Dictionary<int, UnlockableIncrementer>();
     private void OnEnable() => PlayerController.playerIsHit += TakeDamage;
     private void OnDisable() => PlayerController.playerIsHit -= TakeDamage;
@@ -38,9 +39,12 @@ public class PlayerPropertiesInterface : MonoBehaviour
 
         playerController = GetComponent<PlayerController>();
         playerShield = GetComponentInChildren<PlayerShield>();
+        playerBulletTrail = GetComponent<PlayerBulletTrail>();
         playerRecoilAttack = GetComponentInChildren(typeof(PlayerRecoilAttack), true) as PlayerRecoilAttack;
 
         SetMovementSpeed(genericUpgradesData.movementSpeed);
+        SetBulletTrail(genericUpgradesData.bulletTrail);
+
         SetRecoil(genericUpgradesData.recoilAmount);
         SetRecoilAttackSize(genericUpgradesData.recoilAttackSize);
         SetShieldRadius(genericUpgradesData.shieldRadius);
@@ -121,6 +125,11 @@ public class PlayerPropertiesInterface : MonoBehaviour
     private void SetMovementSpeed(float percentage)
     {
         playerController.movementSpeed = 500 * percentage;
+    }
+    private void SetBulletTrail(float percentage)
+    {
+        playerController.bulletTrailActivated = true;
+        playerBulletTrail.SetTimeInterval((1 - percentage) * .5f);
     }
     private void SetRecoil(float percentage)
     {

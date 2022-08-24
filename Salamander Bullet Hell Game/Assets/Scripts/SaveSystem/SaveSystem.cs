@@ -76,6 +76,7 @@ public class GenericUpgradesData
     // * Movement Upgrades
     public float movementSpeed = 0f;
     public float invincibilityDash = 0f;
+    public float bulletTrail = 0f;
     // * Recoil Upgrades
     public float recoilAmount = 0f;
     public float recoilShieldSize = 0f;
@@ -99,6 +100,7 @@ public class GenericUpgradesData
     // * Movement Upgrades Level
     public int movementLevel = 0;
     public int invincibilityDashLevel = 0;
+    public int bulletTrailLevel;
     // * Recoil Upgrades Level
     public int recoilAmountLevel = 0;
     public int recoilShieldSizeLevel = 0;

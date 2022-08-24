@@ -8,6 +8,7 @@ public class UpgradesSaveInterface : MonoBehaviour
     // * Movement Incrementers
     [SerializeField] private UnlockableIncrementer moveSpeedIncrementer;
     [SerializeField] private UnlockableIncrementer invincibilityDashIncrementer;
+    [SerializeField] private UnlockableIncrementer bulletTrailIncrementer;
     // * Recoil Incrementers
     [SerializeField] private UnlockableIncrementer recoilAmountIncrementer;
     [SerializeField] private UnlockableIncrementer recoilShieldSizeIncrementer;
@@ -42,6 +43,7 @@ public class UpgradesSaveInterface : MonoBehaviour
     {
         yield return null;
         moveSpeedIncrementer.SetValue(genericUpgradesData.movementSpeed, genericUpgradesData.movementLevel);
+        bulletTrailIncrementer.SetValue(genericUpgradesData.bulletTrail, genericUpgradesData.bulletTrailLevel);
         // invincibilityDashIncrementer.SetValue(genericUpgradesData.invincibilityDash, genericUpgradesData.invincibilityDashLevel);
 
         recoilAmountIncrementer.SetValue(genericUpgradesData.recoilAmount, genericUpgradesData.recoilAmountLevel);
@@ -68,6 +70,10 @@ public class UpgradesSaveInterface : MonoBehaviour
     {
         genericUpgradesData.invincibilityDash = percentage;
     }
+    public void SetBulletTrail(float percentage)
+    {
+        genericUpgradesData.bulletTrail = percentage;
+    }
     public void SetRecoil(float percentage)
     {
         genericUpgradesData.recoilAmount = percentage;
@@ -86,7 +92,6 @@ public class UpgradesSaveInterface : MonoBehaviour
     }
     public void SetShieldSlowdown(float percentage)
     {
-        Debug.Log(percentage);
         genericUpgradesData.shieldSlowdown = percentage;
     }
     public void SetShieldBounce(float percentage)
@@ -124,6 +129,10 @@ public class UpgradesSaveInterface : MonoBehaviour
     public void SetInvincibilityDashLevel(int level)
     {
         genericUpgradesData.invincibilityDashLevel = level;
+    }
+    public void SetBulletTrailLevel(int level)
+    {
+        genericUpgradesData.bulletTrailLevel = level;
     }
     // * Recoil Upgrades Level
     public void SetRecoilLevel(int level)

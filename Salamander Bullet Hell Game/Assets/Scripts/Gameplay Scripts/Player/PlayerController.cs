@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public int shotgun;
     [HideInInspector] public float bulletSpeed;
     [HideInInspector] public float bulletSize;
+    [HideInInspector] public bool bulletTrailActivated = false;
 
     [HideInInspector] public bool recoilAttackEnabled = false;
 
@@ -34,6 +35,7 @@ public class PlayerController : MonoBehaviour
     Rigidbody2D rb;
     SpriteRenderer sr;
     PlayerDeath playerDeath;
+    PlayerBulletTrail playerBulletTrail;
 
     Vector2 movement;
 
@@ -50,6 +52,7 @@ public class PlayerController : MonoBehaviour
         instakillEverything.SetActive(false);
         sr = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
+        playerBulletTrail = GetComponent<PlayerBulletTrail>();
     }
     private void OnEnable() => PlayerDeath.playerDeath += DisableMovement;
     private void OnDisable() => PlayerDeath.playerDeath -= DisableMovement;
@@ -71,6 +74,27 @@ public class PlayerController : MonoBehaviour
             Time.timeScale = 1f;
         }
         if(paused) return;
+
+
+
+        // Right Click
+        if(Input.GetKey(KeyCode.Mouse1))
+        {
+            // enable right click effects
+            if(bulletTrailActivated)
+            {
+                playerBulletTrail.ActivateTrail();
+            }
+        }
+        // disable the right click effects
+        else
+        {
+            playerBulletTrail.DeactivateTrail();
+        }
+
+
+
+        // Left Click
         if(Input.GetKeyDown(KeyCode.Mouse0))
         {
             SpawnBullet();

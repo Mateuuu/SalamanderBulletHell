@@ -508,6 +508,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fbbf2e13f6bedaf798eb9a686d6f68d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &69727667
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 69727668}
+  m_Layer: 6
+  m_Name: BulletTrailSpawnpoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &69727668
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 69727667}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.76, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 654037257}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &106257794
 GameObject:
   m_ObjectHideFlags: 0
@@ -1477,6 +1508,7 @@ GameObject:
   - component: {fileID: 654037253}
   - component: {fileID: 654037258}
   - component: {fileID: 654037259}
+  - component: {fileID: 654037260}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -1499,14 +1531,13 @@ MonoBehaviour:
   movementSpeed: 400
   shootForce: 1164
   explodingBullet: 0
+  shotgun: 0
   bulletSpeed: 0
   bulletSize: 0
+  bulletTrailTimeInterval: 0
   recoilAttackEnabled: 0
-  explodingBulletEnabled: 0
-  shotgunEnabled: 0
   bulletSpawnPoint: {fileID: 2035770207}
   playerRecoilAttack: {fileID: 1073501682}
-  shotgunBulletCount: 5
   instakillEverything: {fileID: 1864715231}
 --- !u!61 &654037254
 BoxCollider2D:
@@ -1625,6 +1656,7 @@ Transform:
   - {fileID: 986459818}
   - {fileID: 2130081083}
   - {fileID: 1864715232}
+  - {fileID: 69727668}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1665,6 +1697,19 @@ MonoBehaviour:
   playerDeathParticles: {fileID: 986459820}
   cameraController: {fileID: 0}
   playerRB: {fileID: 654037255}
+--- !u!114 &654037260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 654037252}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcbad2943ba032da1a64d411c4eb815b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeInterval: 0
 --- !u!1 &654779712
 GameObject:
   m_ObjectHideFlags: 0
@@ -2428,6 +2473,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbc5e6c586921f233bded91dcc4dd805, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  recoilAttackSize: 0
   smoothing: 3
 --- !u!212 &1073501685
 SpriteRenderer:

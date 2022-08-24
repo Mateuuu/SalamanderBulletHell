@@ -3527,6 +3527,14 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 760078226361202648, guid: fb27390540186ef8a9819f929bfb9411, type: 3}
+      propertyPath: maxValue
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 760078226361202648, guid: fb27390540186ef8a9819f929bfb9411, type: 3}
+      propertyPath: minValue
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 760078226361202648, guid: fb27390540186ef8a9819f929bfb9411, type: 3}
       propertyPath: purchaseDisplay
       value: 
       objectReference: {fileID: 1386423418}
@@ -3576,11 +3584,11 @@ PrefabInstance:
       objectReference: {fileID: 1461976207}
     - target: {fileID: 760078226361202648, guid: fb27390540186ef8a9819f929bfb9411, type: 3}
       propertyPath: onLevelChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SetShieldRadiusLevel
+      value: SetBulletTrailLevel
       objectReference: {fileID: 0}
     - target: {fileID: 760078226361202648, guid: fb27390540186ef8a9819f929bfb9411, type: 3}
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SetShieldRadius
+      value: SetBulletTrail
       objectReference: {fileID: 0}
     - target: {fileID: 760078226361202649, guid: fb27390540186ef8a9819f929bfb9411, type: 3}
       propertyPath: m_Pivot.x
@@ -3668,11 +3676,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 760078226361202650, guid: fb27390540186ef8a9819f929bfb9411, type: 3}
       propertyPath: m_Name
-      value: Temp
+      value: BulletTrail
       objectReference: {fileID: 0}
     - target: {fileID: 760078226361202650, guid: fb27390540186ef8a9819f929bfb9411, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 760078226423509937, guid: fb27390540186ef8a9819f929bfb9411, type: 3}
       propertyPath: m_Sprite
@@ -3778,6 +3786,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1386423421 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 760078226361202648, guid: fb27390540186ef8a9819f929bfb9411, type: 3}
+  m_PrefabInstance: {fileID: 1386423416}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fbbf2e13f6bedaf798eb9a686d6f68d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &1393274113 stripped
@@ -4090,10 +4109,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeedIncrementer: {fileID: 691245194}
   invincibilityDashIncrementer: {fileID: 2093605607}
+  bulletTrailIncrementer: {fileID: 1386423421}
   recoilAmountIncrementer: {fileID: 1562438375}
   recoilShieldSizeIncrementer: {fileID: 1541836388}
   shotgunIncrementer: {fileID: 527132391}
-  recoilAttackSizeIncrementer: {fileID: 1541836388}
   shieldRadiusIncrementer: {fileID: 1564692114}
   shieldSlowdownIncrementer: {fileID: 1844812032}
   shieldBounceIncrementer: {fileID: 548870559}
@@ -4105,6 +4124,7 @@ MonoBehaviour:
   genericUpgradesData:
     movementSpeed: 0
     invincibilityDash: 0
+    bulletTrail: 0
     recoilAmount: 0
     recoilShieldSize: 0
     shotgun: 0
@@ -4119,6 +4139,7 @@ MonoBehaviour:
     bulletTrajectory: 0
     movementLevel: 0
     invincibilityDashLevel: 0
+    bulletTrailLevel: 0
     recoilAmountLevel: 0
     recoilShieldSizeLevel: 0
     shotgunLevel: 0
@@ -4293,7 +4314,9 @@ MonoBehaviour:
     m_LineSpacing: 1.8
   m_Text: 'Movement Speed
 
-    Invincibility Dash'
+    Invincibility Dash
+
+    Bullet Trail'
 --- !u!222 &1521138217
 CanvasRenderer:
   m_ObjectHideFlags: 0
