@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerRecoilAttack : MonoBehaviour
 {
+    [HideInInspector] public float recoilAttackSize = 0f;
+
     [SerializeField] private float smoothing;
     Rigidbody2D rb;
     void Awake()
@@ -20,7 +22,7 @@ public class PlayerRecoilAttack : MonoBehaviour
     }
     void Update()
     {
-        float scaleTarget = rb.velocity.magnitude * .15f;
+        float scaleTarget = rb.velocity.magnitude * (.2f * recoilAttackSize);
 
         float scale = Mathf.Lerp(transform.localScale.y, scaleTarget, Time.deltaTime * smoothing);
         transform.localScale = new Vector3(.15f, scale, 1f);

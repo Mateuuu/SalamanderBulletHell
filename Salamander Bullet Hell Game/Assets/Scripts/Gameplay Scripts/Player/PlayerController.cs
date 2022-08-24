@@ -23,18 +23,9 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public float bulletSpeed;
     [HideInInspector] public float bulletSize;
 
-
-
-
-    // Will delete later
     [HideInInspector] public bool recoilAttackEnabled = false;
 
     #endregion
-
-
-
-
-
 
     [SerializeField] Transform bulletSpawnPoint;
     [SerializeField] GameObject playerRecoilAttack;

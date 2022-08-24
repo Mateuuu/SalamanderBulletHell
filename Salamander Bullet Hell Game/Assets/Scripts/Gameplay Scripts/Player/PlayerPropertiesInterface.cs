@@ -38,10 +38,11 @@ public class PlayerPropertiesInterface : MonoBehaviour
 
         playerController = GetComponent<PlayerController>();
         playerShield = GetComponentInChildren<PlayerShield>();
-        playerRecoilAttack = GetComponentInChildren<PlayerRecoilAttack>();
+        playerRecoilAttack = GetComponentInChildren(typeof(PlayerRecoilAttack), true) as PlayerRecoilAttack;
 
         SetMovementSpeed(genericUpgradesData.movementSpeed);
         SetRecoil(genericUpgradesData.recoilAmount);
+        SetRecoilAttackSize(genericUpgradesData.recoilAttackSize);
         SetShieldRadius(genericUpgradesData.shieldRadius);
         SetShieldSlowdown(genericUpgradesData.shieldSlowdown);
 
@@ -148,5 +149,18 @@ public class PlayerPropertiesInterface : MonoBehaviour
     private void SetExplodingBullet(float percentage)
     {
         playerController.explodingBullet = percentage;
+    }
+    private void SetRecoilAttackSize(float percentage)
+    {
+        playerRecoilAttack.recoilAttackSize = percentage;
+        Debug.Log(playerRecoilAttack.recoilAttackSize);
+        if(playerRecoilAttack.recoilAttackSize != 0)
+        {
+            playerController.recoilAttackEnabled = true;
+        }
+        else
+        {
+            playerController.recoilAttackEnabled = false;
+        }
     }
 }
