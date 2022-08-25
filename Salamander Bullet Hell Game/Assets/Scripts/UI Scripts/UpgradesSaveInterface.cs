@@ -44,10 +44,10 @@ public class UpgradesSaveInterface : MonoBehaviour
         yield return null;
         moveSpeedIncrementer.SetValue(genericUpgradesData.movementSpeed, genericUpgradesData.movementLevel);
         bulletTrailIncrementer.SetValue(genericUpgradesData.bulletTrail, genericUpgradesData.bulletTrailLevel);
-        // invincibilityDashIncrementer.SetValue(genericUpgradesData.invincibilityDash, genericUpgradesData.invincibilityDashLevel);
+        invincibilityDashIncrementer.SetValue(genericUpgradesData.invincibilityDash, genericUpgradesData.invincibilityDashLevel);
 
         recoilAmountIncrementer.SetValue(genericUpgradesData.recoilAmount, genericUpgradesData.recoilAmountLevel);
-        recoilShieldSizeIncrementer.SetValue(genericUpgradesData.recoilShieldSize, genericUpgradesData.recoilShieldSizeLevel);
+        recoilShieldSizeIncrementer.SetValue(genericUpgradesData.recoilAttackSize, genericUpgradesData.recoilAttackSizeLevel);
         shotgunIncrementer.SetValue(genericUpgradesData.shotgun, genericUpgradesData.shotgunLevel);
 
         shieldRadiusIncrementer.SetValue(genericUpgradesData.shieldRadius, genericUpgradesData.shieldRadiusLevel);
@@ -80,7 +80,7 @@ public class UpgradesSaveInterface : MonoBehaviour
     }
     public void SetRecoilShieldSize(float percentage)
     {
-        genericUpgradesData.recoilShieldSize = percentage;
+        genericUpgradesData.recoilAttackSize = percentage;
     }
     public void SetShotgun(float bulletAmount)
     {
@@ -141,7 +141,7 @@ public class UpgradesSaveInterface : MonoBehaviour
     }
     public void SetRecoilShieldSizeLevel(int level)
     {
-        genericUpgradesData.recoilShieldSizeLevel = level;
+        genericUpgradesData.recoilAttackSizeLevel = level;
     }
     public void SetShotgunLevel(int level)
     {

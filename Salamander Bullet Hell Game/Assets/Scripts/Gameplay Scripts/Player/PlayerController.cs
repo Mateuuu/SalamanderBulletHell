@@ -15,6 +15,8 @@ public class PlayerController : MonoBehaviour
 
     // * Movement Variables
     [HideInInspector] public float movementSpeed;
+    [HideInInspector] public float invincibilityDash;
+    [HideInInspector] public bool bulletTrailActivated = false;
     // * Recoil Variables
     [HideInInspector] public float shootForce;
     // * Bullet Variables
@@ -22,7 +24,6 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public int shotgun;
     [HideInInspector] public float bulletSpeed;
     [HideInInspector] public float bulletSize;
-    [HideInInspector] public bool bulletTrailActivated = false;
 
     [HideInInspector] public bool recoilAttackEnabled = false;
 
@@ -38,12 +39,14 @@ public class PlayerController : MonoBehaviour
     PlayerBulletTrail playerBulletTrail;
 
     Vector2 movement;
+    private float dashModifier = 0f;
 
 
     bool isRecoiling = false;
     bool movementDisabled = false;
     bool paused = false;
     bool invincibilityFrames = false;
+    bool dashing = false;
 
 
     const float oneOverSqrtTwo = .7071067f;
@@ -85,10 +88,20 @@ public class PlayerController : MonoBehaviour
             {
                 playerBulletTrail.ActivateTrail();
             }
+            if(invincibilityDash > 0)
+            {
+                dashModifier = invincibilityDash;
+                if(!dashing)
+                {
+                    StartCoroutine(InvincibilityDash());
+                }
+
+            }
         }
         // disable the right click effects
         else
         {
+            dashModifier = 0f;
             playerBulletTrail.DeactivateTrail();
         }
 
@@ -114,7 +127,7 @@ public class PlayerController : MonoBehaviour
         }
         if(!isRecoiling)
         {
-            rb.velocity = movement * Time.deltaTime * movementSpeed * diagonalSpeedMultiplier;
+            rb.velocity = movement * Time.deltaTime * (movementSpeed + dashModifier) * diagonalSpeedMultiplier;
         }
     }
     WaitForFixedUpdate fixedUpdateWait = new WaitForFixedUpdate();
@@ -155,7 +168,7 @@ public class PlayerController : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if(invincibilityFrames) return;
+        if(invincibilityFrames || dashing) return;
         if(
             other.gameObject.layer == 9 //normal bullet
         || other.gameObject.layer == 11 //enemy
@@ -170,7 +183,7 @@ public class PlayerController : MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D other)
     {
-        if(invincibilityFrames) return;
+        if(invincibilityFrames || dashing) return;
 
         if(other.gameObject.layer == 15) // 15 is explosion layer
         {
@@ -268,12 +281,32 @@ public class PlayerController : MonoBehaviour
         yield return fixedUpdateWait;
         instakillEverything.SetActive(false);
     }
+    IEnumerator InvincibilityDash()
+    {
+        dashing = true;
+        int i = 0;
+        while(dashModifier > 0)
+        {
+            if(i % 2 != 0)
+            {
+                sr.color = Color.blue;
+            }
+            else
+            {
+                sr.color = Color.white;
+            }
+            i++;
+            yield return null;
+        }
+        dashing = false;
+        sr.color = Color.white;
+    }
     IEnumerator TakeDamage()
     {
         invincibilityFrames = true;
         for(int i = 0; i < 30; i++)
         {
-            if(i % 2 == 0)
+            if(i % 3 == 0)
             {
                 sr.color = Color.red;
                 yield return fixedUpdateWait;

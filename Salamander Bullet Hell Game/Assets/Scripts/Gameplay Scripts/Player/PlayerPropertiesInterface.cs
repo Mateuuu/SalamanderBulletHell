@@ -43,6 +43,7 @@ public class PlayerPropertiesInterface : MonoBehaviour
         playerRecoilAttack = GetComponentInChildren(typeof(PlayerRecoilAttack), true) as PlayerRecoilAttack;
 
         SetMovementSpeed(genericUpgradesData.movementSpeed);
+        SetInvincibilityDash(genericUpgradesData.invincibilityDash);
         SetBulletTrail(genericUpgradesData.bulletTrail);
 
         SetRecoil(genericUpgradesData.recoilAmount);
@@ -126,9 +127,20 @@ public class PlayerPropertiesInterface : MonoBehaviour
     {
         playerController.movementSpeed = 500 * percentage;
     }
+    private void SetInvincibilityDash(float percentage)
+    {
+        playerController.invincibilityDash = percentage * 400;
+    }
     private void SetBulletTrail(float percentage)
     {
-        playerController.bulletTrailActivated = true;
+        if(percentage > 0)
+        {
+            playerController.bulletTrailActivated = true;
+        }
+        else
+        {
+            playerController.bulletTrailActivated = false;
+        }
         playerBulletTrail.SetTimeInterval((1 - percentage) * .5f);
     }
     private void SetRecoil(float percentage)

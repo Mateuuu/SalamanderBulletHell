@@ -14,7 +14,6 @@ public class PlayerBulletTrail : MonoBehaviour
     }
     public void SetTimeInterval(float interval)
     {
-        Debug.Log(interval);
         timeIntervalWait = new WaitForSeconds(interval);
     }
     public void ActivateTrail()
@@ -46,7 +45,7 @@ public class PlayerBulletTrail : MonoBehaviour
             {
                 yield return timeIntervalWait;
                 Vector2 normalizedVelocity = rb.velocity.normalized;
-                Vector3 spawnPoint = new Vector3((-normalizedVelocity.x * .35f) + transform.position.x, (-normalizedVelocity.y * .35f) + transform.position.y, 0);
+                Vector3 spawnPoint = new Vector3((-normalizedVelocity.x * .4f) + transform.position.x, (-normalizedVelocity.y * .4f) + transform.position.y, 0);
                 PlayerBullet bullet = ObjectPool.SpawnFromPool("PlayerBullet", spawnPoint, Quaternion.identity).GetComponent<PlayerBullet>();
                 bullet.SetSpeed(0);
             }

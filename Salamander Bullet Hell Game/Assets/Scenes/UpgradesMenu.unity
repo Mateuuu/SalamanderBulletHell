@@ -5960,7 +5960,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 760078226361202648, guid: fb27390540186ef8a9819f929bfb9411, type: 3}
       propertyPath: numOfIncrements
-      value: 0
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 760078226361202648, guid: fb27390540186ef8a9819f929bfb9411, type: 3}
       propertyPath: shopMoneyManager
@@ -6104,7 +6104,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 760078226361202650, guid: fb27390540186ef8a9819f929bfb9411, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 760078226423509937, guid: fb27390540186ef8a9819f929bfb9411, type: 3}
       propertyPath: m_Sprite

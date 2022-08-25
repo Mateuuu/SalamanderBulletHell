@@ -6,22 +6,33 @@ public class Money : MonoBehaviour
 {
     [SerializeField] int value;
     bool deposited = false;
-    private void OnEnable() => deposited = false;
-    void OnTriggerStay2D(Collider2D other)
+    bool following = false;
+    private void OnEnable()
     {
+        deposited = false;
+        following = false;
+    }
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if(following) return;
+        StartCoroutine(FollowPlayer(other.transform));
+    }
+    WaitForFixedUpdate fixedUpdateWait = new WaitForFixedUpdate();
+    IEnumerator FollowPlayer(Transform target)
+    {
+        following = true;
+        while(Vector3.Distance(transform.position, target.position) > .4f)
+        {
+            yield return fixedUpdateWait;
+            transform.position = Vector3.MoveTowards(transform.position, target.position, Time.deltaTime * 10f);
+        }
         if(!deposited)
         {
             GameMoneyManager.instance.DepositMoney(value);
             deposited = true;
         }
-        if(Vector3.Distance(transform.position, other.transform.position) < .4f)
-        {
-            ObjectPool.ReturnToPool("Money" + value, gameObject);
-        }
-        else
-        {
-            transform.position = Vector3.MoveTowards(transform.position, other.transform.position, Time.deltaTime * 10f);
-        }
+        ObjectPool.ReturnToPool("Money" + value, gameObject);
+
     }
 
 }

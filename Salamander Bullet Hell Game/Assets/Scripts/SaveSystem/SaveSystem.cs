@@ -79,7 +79,6 @@ public class GenericUpgradesData
     public float bulletTrail = 0f;
     // * Recoil Upgrades
     public float recoilAmount = 0f;
-    public float recoilShieldSize = 0f;
     public float shotgun = 0f;
     public float recoilAttackSize = 0f;
 
@@ -103,7 +102,6 @@ public class GenericUpgradesData
     public int bulletTrailLevel;
     // * Recoil Upgrades Level
     public int recoilAmountLevel = 0;
-    public int recoilShieldSizeLevel = 0;
     public int shotgunLevel = 0;
     public int recoilAttackSizeLevel = 0;
     // * Shield Upgrades Level
