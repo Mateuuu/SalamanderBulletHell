@@ -48,6 +48,7 @@ public class PlayerBulletTrail : MonoBehaviour
                 Vector3 spawnPoint = new Vector3((-normalizedVelocity.x * .4f) + transform.position.x, (-normalizedVelocity.y * .4f) + transform.position.y, 0);
                 PlayerBullet bullet = ObjectPool.SpawnFromPool("PlayerBullet", spawnPoint, Quaternion.identity).GetComponent<PlayerBullet>();
                 bullet.SetSpeed(0);
+                bullet.SetSize(0);
             }
         }
     }

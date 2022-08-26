@@ -19,11 +19,12 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public bool bulletTrailActivated = false;
     // * Recoil Variables
     [HideInInspector] public float shootForce;
+    [HideInInspector] public int shotgun;
     // * Bullet Variables
     [HideInInspector] public float explodingBullet;
-    [HideInInspector] public int shotgun;
     [HideInInspector] public float bulletSpeed;
     [HideInInspector] public float bulletSize;
+    [HideInInspector] public float bulletTrajectoryLength = 30f;
 
     [HideInInspector] public bool recoilAttackEnabled = false;
 
@@ -32,6 +33,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Transform bulletSpawnPoint;
     [SerializeField] GameObject playerRecoilAttack;
     [SerializeField] GameObject instakillEverything;
+    [SerializeField] ShootTrajectory shootTrajectory;
 
     Rigidbody2D rb;
     SpriteRenderer sr;
@@ -52,6 +54,7 @@ public class PlayerController : MonoBehaviour
     const float oneOverSqrtTwo = .7071067f;
     void Awake()
     {
+        bulletTrajectoryLength = 30f;
         instakillEverything.SetActive(false);
         sr = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
@@ -115,7 +118,14 @@ public class PlayerController : MonoBehaviour
         }
         movement.y = Input.GetAxisRaw("Vertical");
         movement.x = Input.GetAxisRaw("Horizontal");
-        Rotate(GetAngleToMouse());
+
+        Vector2 lookDir = GetLookDirection();
+        Rotate(GetAngleToMouse(lookDir));
+
+        if(bulletTrajectoryLength != 0)
+        {
+            shootTrajectory.ShowTrajectory(bulletTrajectoryLength, lookDir, transform.position);
+        }
     }
     void FixedUpdate()
     {
@@ -155,10 +165,15 @@ public class PlayerController : MonoBehaviour
         }
         isRecoiling = false;
     }
-    private float GetAngleToMouse()
+    private Vector2 GetLookDirection()
     {
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector2 lookDir = mousePos - new Vector2(transform.position.x, transform.position.y);
+        return lookDir;
+
+    }
+    private float GetAngleToMouse(Vector2 lookDir)
+    {
         float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg;
         return angle;
     }
