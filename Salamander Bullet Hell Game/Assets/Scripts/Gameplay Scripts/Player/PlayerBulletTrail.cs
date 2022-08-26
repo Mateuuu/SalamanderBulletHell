@@ -44,12 +44,25 @@ public class PlayerBulletTrail : MonoBehaviour
             else
             {
                 yield return timeIntervalWait;
-                Vector2 normalizedVelocity = rb.velocity.normalized;
-                Vector3 spawnPoint = new Vector3((-normalizedVelocity.x * .4f) + transform.position.x, (-normalizedVelocity.y * .4f) + transform.position.y, 0);
-                PlayerBullet bullet = ObjectPool.SpawnFromPool("PlayerBullet", spawnPoint, Quaternion.identity).GetComponent<PlayerBullet>();
-                bullet.SetSpeed(0);
-                bullet.SetSize(0);
+                StartCoroutine(SpawnBullet());
             }
         }
+    }
+    WaitForFixedUpdate fixedUpdateWait = new WaitForFixedUpdate();
+    IEnumerator SpawnBullet()
+    {
+        Vector2 normalizedVelocity = rb.velocity.normalized;
+        Vector3 spawnPoint = new Vector3((-normalizedVelocity.x * .4f) + transform.position.x, (-normalizedVelocity.y * .4f) + transform.position.y, 0);
+        yield return fixedUpdateWait;
+        yield return fixedUpdateWait;
+        yield return fixedUpdateWait;
+        if(normalizedVelocity == Vector2.zero)
+        {
+            Debug.Log("test");
+            yield break;
+        }
+        PlayerBullet bullet = ObjectPool.SpawnFromPool("PlayerBullet", spawnPoint, Quaternion.identity).GetComponent<PlayerBullet>();
+        bullet.SetSize(0);
+        bullet.SetSpeed(0);
     }
 }

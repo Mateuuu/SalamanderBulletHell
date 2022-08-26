@@ -1921,7 +1921,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 760078226361202648, guid: fb27390540186ef8a9819f929bfb9411, type: 3}
       propertyPath: numOfIncrements
-      value: 0
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 760078226361202648, guid: fb27390540186ef8a9819f929bfb9411, type: 3}
       propertyPath: shopMoneyManager
@@ -4126,7 +4126,6 @@ MonoBehaviour:
     invincibilityDash: 0
     bulletTrail: 0
     recoilAmount: 0
-    recoilShieldSize: 0
     shotgun: 0
     recoilAttackSize: 0
     shieldRadius: 0
@@ -4141,7 +4140,6 @@ MonoBehaviour:
     invincibilityDashLevel: 0
     bulletTrailLevel: 0
     recoilAmountLevel: 0
-    recoilShieldSizeLevel: 0
     shotgunLevel: 0
     recoilAttackSizeLevel: 0
     shieldRadiusLevel: 0

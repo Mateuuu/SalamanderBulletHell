@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(LineRenderer))]
-public class ShootTrajectory : MonoBehaviour
+public class Laser : MonoBehaviour
 {
     [SerializeField] LayerMask trajectoryMask;
+    [SerializeField] LayerMask objectMask;
     LineRenderer lr;
     void Awake()
     {
@@ -27,9 +28,12 @@ public class ShootTrajectory : MonoBehaviour
         Vector2 prevPoint = new Vector2(transform.position.x, transform.position.y);
         Physics2D.queriesStartInColliders = false;
 
+        RaycastHit2D[] objectHit;
+
         while(length > 0)
         {
-            hit = Physics2D.Raycast(prevPoint, lookDir, length, trajectoryMask);
+            hit = Physics2D.Raycast(prevPoint, lookDir, length, objectMask);
+            objectHit = Physics2D.RaycastAll(prevPoint, lookDir, length, trajectoryMask);
 
             if(hit.collider != null)
             {
@@ -42,6 +46,13 @@ public class ShootTrajectory : MonoBehaviour
             {
                 points.Add(new Vector3(prevPoint.x + (length * lookDir.normalized.x), prevPoint.y + (length * lookDir.normalized.y), 0));
                 length = 0;
+            }
+            for (int i = 0; i < objectHit.Length; i++)
+            {
+                if(objectHit[i].collider != null)
+                {
+                    objectHit[i].transform.gameObject.GetComponent<IDestructableObject>().DestroyObject();
+                }
             }
         }
         Physics2D.queriesStartInColliders = true;

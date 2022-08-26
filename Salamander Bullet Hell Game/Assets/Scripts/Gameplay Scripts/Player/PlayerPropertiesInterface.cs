@@ -48,14 +48,15 @@ public class PlayerPropertiesInterface : MonoBehaviour
 
         SetRecoil(genericUpgradesData.recoilAmount);
         SetRecoilAttackSize(genericUpgradesData.recoilAttackSize);
+        SetShotgun(genericUpgradesData.shotgun);
+
         SetShieldRadius(genericUpgradesData.shieldRadius);
         SetShieldSlowdown(genericUpgradesData.shieldSlowdown);
 
         SetBulletSize(genericUpgradesData.bulletSize);
         SetBulletSpeed(genericUpgradesData.bulletSpeed);
-        SetShotgun(genericUpgradesData.shotgun);
         SetExplodingBullet(genericUpgradesData.explodingBullet);
-
+        SetBulletTrajectory(genericUpgradesData.bulletTrajectory);
         // ToggleRecoilAttack(classUpgradesData.recoilAttackEnabled);
         // ToggleShieldDeflection(classUpgradesData.shieldAttackEnabled);
         // ToggleExplodingBullet(classUpgradesData.explodingBulletEnabled);
@@ -162,6 +163,10 @@ public class PlayerPropertiesInterface : MonoBehaviour
     private void SetBulletSpeed(float percentage)
     {
         playerController.bulletSpeed = percentage;
+    }
+    private void SetBulletTrajectory(float percentage)
+    {
+        playerController.bulletTrajectoryLength = percentage * 20f;
     }
     private void SetShotgun(float bulletCount)
     {

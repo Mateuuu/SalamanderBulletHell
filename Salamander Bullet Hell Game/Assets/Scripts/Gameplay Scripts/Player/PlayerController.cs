@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public float explodingBullet;
     [HideInInspector] public float bulletSpeed;
     [HideInInspector] public float bulletSize;
-    [HideInInspector] public float bulletTrajectoryLength = 30f;
+    [HideInInspector] public float bulletTrajectoryLength;
 
     [HideInInspector] public bool recoilAttackEnabled = false;
 
@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Transform bulletSpawnPoint;
     [SerializeField] GameObject playerRecoilAttack;
     [SerializeField] GameObject instakillEverything;
-    [SerializeField] ShootTrajectory shootTrajectory;
+    [SerializeField] Laser laser;
 
     Rigidbody2D rb;
     SpriteRenderer sr;
@@ -54,7 +54,6 @@ public class PlayerController : MonoBehaviour
     const float oneOverSqrtTwo = .7071067f;
     void Awake()
     {
-        bulletTrajectoryLength = 30f;
         instakillEverything.SetActive(false);
         sr = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
@@ -124,7 +123,7 @@ public class PlayerController : MonoBehaviour
 
         if(bulletTrajectoryLength != 0)
         {
-            shootTrajectory.ShowTrajectory(bulletTrajectoryLength, lookDir, transform.position);
+            laser.ShowTrajectory(bulletTrajectoryLength, lookDir, transform.position);
         }
     }
     void FixedUpdate()
